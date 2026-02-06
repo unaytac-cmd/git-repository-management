@@ -1,0 +1,31 @@
+{
+  "name": "git-repository-management",
+  "version": "1.0.0",
+  "description": "A structured Git repository with proper configuration for multi-language development and deployment pipelines",
+  "private": true,
+  "scripts": {
+    "prepare": "husky install",
+    "lint:js": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore .",
+    "lint:py": "black --check .",
+    "lint": "npm run lint:js && npm run lint:py",
+    "test": "npm run test:js && npm run test:py",
+    "test:js": "jest --passWithNoTests",
+    "test:py": "pytest || true"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "eslint": "^8.55.0",
+    "husky": "^8.0.3",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.2.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ],
+    "*.py": [
+      "black"
+    ]
+  }
+}

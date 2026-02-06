@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+
+# Run lint-staged for JavaScript/TypeScript files
+echo "📝 Running linters on staged files..."
+npx lint-staged
+
+# Check for Python files and run Black
+PYTHON_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\.py$' || true)
+if [ -n "$PYTHON_FILES" ]; then
+  echo "🐍 Checking Python files with Black..."
+  if command -v black >/dev/null 2>&1; then
+    echo "$PYTHON_FILES" | xargs black --check
+    if [ $? -ne 0 ]; then
+      echo "❌ Black formatting check failed. Run 'black .' to fix formatting."
+      exit 1
+    fi
+    echo "✅ Python formatting check passed"
+  else
+    echo "⚠️  Black not found. Install it with: pip install black"
+    echo "   Skipping Python formatting check..."
+  fi
+fi
+
+echo "✅ Pre-commit checks passed!"

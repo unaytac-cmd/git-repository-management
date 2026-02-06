@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Validating commit message format..."
+
+# Run commitlint to validate commit message
+npx --no -- commitlint --edit "$1"
+
+if [ $? -eq 0 ]; then
+  echo "✅ Commit message format is valid"
+else
+  echo ""
+  echo "❌ Commit message does not follow conventional commits format"
+  echo ""
+  echo "Expected format: type(scope): subject"
+  echo ""
+  echo "Valid types: feat, fix, docs, style, refactor, perf, test, chore, ci, infra, revert"
+  echo ""
+  echo "Example: feat(auth): add JWT token validation"
+  echo ""
+  exit 1
+fi

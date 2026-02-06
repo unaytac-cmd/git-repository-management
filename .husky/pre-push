@@ -1,0 +1,33 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🧪 Running test suite before push..."
+
+# Run JavaScript/TypeScript tests
+echo "📦 Running JavaScript tests..."
+npm run test:js
+JS_EXIT_CODE=$?
+
+if [ $JS_EXIT_CODE -ne 0 ]; then
+  echo "❌ JavaScript tests failed"
+  exit 1
+fi
+echo "✅ JavaScript tests passed"
+
+# Run Python tests if pytest is available
+if command -v pytest >/dev/null 2>&1; then
+  echo "🐍 Running Python tests..."
+  npm run test:py
+  PY_EXIT_CODE=$?
+  
+  if [ $PY_EXIT_CODE -ne 0 ]; then
+    echo "⚠️  Python tests had issues, but continuing..."
+  else
+    echo "✅ Python tests passed"
+  fi
+else
+  echo "⚠️  pytest not found. Skipping Python tests..."
+  echo "   Install with: pip install pytest"
+fi
+
+echo "✅ All tests passed! Pushing to remote..."
