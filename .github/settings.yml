@@ -1,0 +1,55 @@
+# GitHub repository settings configuration
+# This file documents the recommended settings for this repository
+
+repository:
+  name: Git Repository Management
+  description: "Professional Git repository with CI/CD, issue templates, and branch protection"
+  private: false
+  topics:
+    - devops
+    - git
+    - github
+    - ci-cd
+    - automation
+    - infrastructure
+
+  # Visibility and Access
+  has_issues: true
+  has_projects: true
+  has_wiki: true
+  has_downloads: true
+  
+  # Default branch
+  default_branch: main
+  
+  # Branch protection rules
+  branch_protection_rules:
+    - branch: main
+      required_status_checks:
+        strict: true
+        contexts:
+          - "Test and Lint"
+          - "Security Checks"
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        require_code_owner_reviews: true
+        dismiss_stale_reviews: true
+      enforce_admins: true
+      restrict_who_can_push_to_matching_branches:
+        allows_deletions: false
+        allows_force_pushes: false
+      require_conversation_resolution: true
+      require_signed_commits: false
+  
+  # Security settings
+  vulnerability_alerts: true
+  dependabot_alerts: true
+  dependabot_security_updates: true
+  secret_scanning: true
+
+  # Automation
+  delete_branch_on_merge: true
+  squash_merge_commit_title: PR_TITLE
+  squash_merge_commit_message: PR_BODY
+  merge_commit_title: PR_TITLE
+  merge_commit_message: PR_BODY

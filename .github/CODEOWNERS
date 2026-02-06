@@ -1,0 +1,25 @@
+# This file defines which users and teams own code in this repository.
+# For more information, see: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# These owners will be requested for review when someone opens a pull request
+# that affects the following code paths:
+
+# Global owners
+* @devops-team
+
+# DevOps and Infrastructure
+.github/ @devops-team
+docker* @devops-team
+.dockerignore @devops-team
+.husky/ @devops-team
+
+# CI/CD Configuration
+.github/workflows/ @devops-team
+
+# Documentation
+docs/ @documentation-team
+*.md @documentation-team
+
+# Configuration
+pyproject.toml @devops-team
+package.json @devops-team
